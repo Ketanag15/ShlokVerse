@@ -3,27 +3,38 @@ package com.shlokverse.controller;
 import com.shlokverse.model.God;
 import com.shlokverse.service.GodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/api/gods")
 public class GodController {
-    @Autowired
     private GodService godService;
 
-    @GetMapping
-    public ResponseEntity<List<God>> getAllGods(){
-        List<God> gods = godService.getAllGods();
-        return ResponseEntity.ok(gods);
+    @Autowired
+    public GodController(GodService godService){
+        this.godService = godService;
     }
 
     @GetMapping
-    public ResponseEntity<God> getGodById(Long id){
-        Optional<God> god = godService.getGodById(id);
-        return god.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public List<God> getAllGods(){
+        return godService.getAllGods();
     }
 
+    @GetMapping("/{id}")
+    public Optional<God> getGodById(@PathVariable Long id){
+        return godService.getGodById(id);
+    }
 
+    @PostMapping
+    public God createGod(@RequestBody God god){
+        return godService.saveGod(god);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteGodById(@PathVariable Long id){
+        godService.deleteGod(id);
+    }
 }
