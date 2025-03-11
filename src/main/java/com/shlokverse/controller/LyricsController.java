@@ -47,5 +47,4 @@ public class LyricsController {
     public void deleteLyrics(@PathVariable Long id){
         lyricsService.deleteLyrics(id);
     }
-
 }
