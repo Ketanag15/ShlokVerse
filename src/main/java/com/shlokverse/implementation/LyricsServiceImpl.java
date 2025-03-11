@@ -5,10 +5,12 @@ import com.shlokverse.model.Lyrics;
 import com.shlokverse.repository.LyricsRepository;
 import com.shlokverse.service.LyricsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class LyricsServiceImpl implements LyricsService {
 
     private final LyricsRepository lyricsRepository;

@@ -1,9 +1,19 @@
 package com.shlokverse.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "lyrics")
 public class Lyrics {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String content;
+    @Column(nullable = false)
     private String title;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     public Lyrics() {
