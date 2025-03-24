@@ -28,14 +28,4 @@ public class GodServiceImpl implements GodService {
     public Optional<God> getGodById(Long id) {
         return godRepository.findById(id);
     }
-
-    @Override
-    public God saveGod(God god) {
-        return godRepository.save(god);
-    }
-
-    @Override
-    public void deleteGod(Long id) {
-        godRepository.deleteById(id);
-    }
 }

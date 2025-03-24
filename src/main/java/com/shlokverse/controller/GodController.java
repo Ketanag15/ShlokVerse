@@ -27,14 +27,4 @@ public class GodController {
     public Optional<God> getGodById(@PathVariable Long id){
         return godService.getGodById(id);
     }
-
-    @PostMapping
-    public God createGod(@RequestBody God god){
-        return godService.saveGod(god);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteGodById(@PathVariable Long id){
-        godService.deleteGod(id);
-    }
 }

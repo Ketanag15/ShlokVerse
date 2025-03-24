@@ -8,7 +8,4 @@ import java.util.Optional;
 public interface GodService {
     List<God> getAllGods();
     Optional<God> getGodById(Long id);
-    God saveGod(God god);
-    void deleteGod(Long id);
-
 }
