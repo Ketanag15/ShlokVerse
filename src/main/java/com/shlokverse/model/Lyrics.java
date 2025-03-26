@@ -15,14 +15,18 @@ public class Lyrics {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+    @ManyToOne
+    @JoinColumn(name = "god_id", nullable = false)
+    private God god;
 
     public Lyrics() {
     }
 
-    public Lyrics(String content, String title, Category category) {
+    public Lyrics(String content, String title, Category category, God god) {
         this.content = content;
         this.title = title;
         this.category = category;
+        this.god = god;
     }
 
     public Long getId() {
@@ -57,6 +61,14 @@ public class Lyrics {
         this.category = category;
     }
 
+    public God getGod(){
+        return god;
+    }
+
+    public void setGod(God god){
+        this.god = god;
+    }
+
     @Override
     public String toString() {
         return "Lyrics{" +
@@ -64,6 +76,7 @@ public class Lyrics {
                 ", title='" + title + '\'' +
                 ", content='" + (content != null ? content.substring(0, Math.min(30, content.length())) + "..." : "null") + '\'' +
                 ", category=" + (category != null ? category.getName() : "null") +
+                ", god=" + (god != null ? god.getName() : "null")+
                 '}';
 
     }

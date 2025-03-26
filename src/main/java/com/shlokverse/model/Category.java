@@ -12,24 +12,21 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increments the ID
     private Long id;
 
-    @Column(nullable = false)  // Category name cannot be null
+    @Column(nullable = false, unique = true)  // Category name cannot be null
     private String name;
 
-    @ManyToOne  // Multiple categories belong to one god
-    @JoinColumn(name = "god_id", nullable = false)  // Foreign key linking to the "gods" table
-    private God god;
-
+    // Each category is simply a type like Aarti, Chalisa, etc.
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Lyrics> lyrics;  // A category can have multiple lyrics
+    private List<Lyrics> lyrics; // All lyrics that are of this category type.
+
 
     // Default Constructor (Required for JPA)
     public Category() {
     }
 
     // Constructor with Parameters
-    public Category(String name, God god) {
+    public Category(String name) {
         this.name = name;
-        this.god = god;
     }
 
     // Getters and Setters
@@ -49,14 +46,6 @@ public class Category {
         this.name = name;
     }
 
-    public God getGod() {
-        return god;
-    }
-
-    public void setGod(God god) {
-        this.god = god;
-    }
-
     public List<Lyrics> getLyrics() {
         return lyrics;
     }
@@ -65,13 +54,11 @@ public class Category {
         this.lyrics = lyrics;
     }
 
-    // toString() method for debugging
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", god=" + (god != null ? god.getName() : "null") +
                 ", lyricsCount=" + (lyrics != null ? lyrics.size() : 0) +
                 '}';
     }

@@ -14,7 +14,7 @@ public class God {
     private String name;
 
     @OneToMany(mappedBy = "god", cascade = CascadeType.ALL) //One god can have multiple categories like aarti, chalisa shlok.
-    private List<Category> categories;
+    private List<Lyrics> lyrics;
 
     public God() { }
 
@@ -38,11 +38,11 @@ public class God {
         this.name = name;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Lyrics> getLyrics() {
+        return lyrics;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setLyrics(List<Lyrics> lyrics) {
+        this.lyrics = lyrics;
     }
 }
