@@ -26,22 +26,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoriesByGod(God god) {
-        return categoryRepository.findByGod(god);
-    }
-
-    @Override
     public Optional<Category> getCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
 
-    @Override
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    @Override
-    public void deleteCategory(Long id) {
-        categoryRepository.deleteById(id);
-    }
 }

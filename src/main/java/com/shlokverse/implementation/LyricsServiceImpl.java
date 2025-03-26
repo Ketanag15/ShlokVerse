@@ -1,6 +1,7 @@
 package com.shlokverse.implementation;
 
 import com.shlokverse.model.Category;
+import com.shlokverse.model.God;
 import com.shlokverse.model.Lyrics;
 import com.shlokverse.repository.LyricsRepository;
 import com.shlokverse.service.LyricsService;
@@ -31,17 +32,17 @@ public class LyricsServiceImpl implements LyricsService {
     }
 
     @Override
+    public List<Lyrics> getLyricsByGod(God god){
+        return lyricsRepository.findByGod(god);
+    }
+
+    @Override
+    public List<Lyrics> getLyricsByGodAndCategory(God god, Category category){
+        return lyricsRepository.findByGodAndCategory(god, category);
+    }
+
+    @Override
     public Optional<Lyrics> getLyricsById(Long id) {
         return lyricsRepository.findById(id);
-    }
-
-    @Override
-    public Lyrics saveLyrics(Lyrics lyrics) {
-        return lyricsRepository.save(lyrics);
-    }
-
-    @Override
-    public void deleteLyrics(Long id) {
-        lyricsRepository.deleteById(id);
     }
 }

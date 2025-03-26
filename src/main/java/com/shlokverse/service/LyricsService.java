@@ -13,7 +13,4 @@ public interface LyricsService {
     List<Lyrics> getLyricsByGod(God god);
     List<Lyrics> getLyricsByGodAndCategory(God god, Category category);
     Optional<Lyrics> getLyricsById(Long id);
-    Lyrics saveLyrics(Lyrics lyrics);
-    void deleteLyrics(Long id);
-
 }
