@@ -8,8 +8,5 @@ import java.util.Optional;
 
 public interface CategoryService {
     List<Category> getAllCategories();
-    List<Category> getCategoriesByGod(God god);
     Optional<Category> getCategoryById(Long id);
-    Category saveCategory(Category category);
-    void deleteCategory(Long id);
 }

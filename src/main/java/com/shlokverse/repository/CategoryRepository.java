@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository //marks this as a repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByGod(God god);
+
 }
