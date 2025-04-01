@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface GodService {
     List<God> getAllGods();
     Optional<God> getGodById(Long id);
+    Optional<God> getGodByName(String name);
 }

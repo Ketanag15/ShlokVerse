@@ -1,5 +1,6 @@
 package com.shlokverse.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,15 +9,21 @@ public class Lyrics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String content;
+
     @Column(nullable = false)
     private String title;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonBackReference // Prevents infinite recursion
     private Category category;
+
     @ManyToOne
     @JoinColumn(name = "god_id", nullable = false)
+    @JsonBackReference // Prevents infinite recursion
     private God god;
 
     public Lyrics() {
@@ -29,6 +36,7 @@ public class Lyrics {
         this.god = god;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -61,11 +69,11 @@ public class Lyrics {
         this.category = category;
     }
 
-    public God getGod(){
+    public God getGod() {
         return god;
     }
 
-    public void setGod(God god){
+    public void setGod(God god) {
         this.god = god;
     }
 
@@ -74,10 +82,9 @@ public class Lyrics {
         return "Lyrics{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", content='" + (content != null ? content.substring(0, Math.min(30, content.length())) + "..." : "null") + '\'' +
+                ", content='" + (content != null ? content.length() > 30 ? content.substring(0, 30) + "..." : content : "null") + '\'' +
                 ", category=" + (category != null ? category.getName() : "null") +
-                ", god=" + (god != null ? god.getName() : "null")+
+                ", god=" + (god != null ? god.getName() : "null") +
                 '}';
-
     }
 }
