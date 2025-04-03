@@ -3,19 +3,17 @@ package com.shlokverse.implementation;
 import com.shlokverse.model.God;
 import com.shlokverse.repository.GodRepository;
 import com.shlokverse.service.GodService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GodServiceImpl implements GodService {
+public class GodServiceImpl implements GodService{
 
     private final GodRepository godRepository;
 
-    @Autowired
-    public GodServiceImpl(GodRepository godRepository) {
+    public GodServiceImpl(GodRepository godRepository){
         this.godRepository = godRepository;
     }
 
@@ -25,7 +23,12 @@ public class GodServiceImpl implements GodService {
     }
 
     @Override
-    public Optional<God> getGodById(Long id) {
-        return godRepository.findById(id);
+    public Optional<God> getGodById(Long godId) {
+        return godRepository.findById(godId);
+    }
+
+    @Override
+    public Optional<God> getGodByName(String godName) {
+        return godRepository.findByGodName(godName);
     }
 }
