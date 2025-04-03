@@ -26,4 +26,24 @@ public class God{
     public God(String godName){
         this.godName = godName;
     }
+
+    public Long getGodId(){
+        return godId;
+    }
+
+    public String getGodName(){
+        return godName;
+    }
+
+    public void setGodName(String godName){
+        this.godName = godName;
+    }
+
+    public List<Lyrics> getLyrics(){
+        return lyrics;
+    }
+
+    public void setLyrics(List<Lyrics> lyrics){
+        this.lyrics = lyrics;
+    }
 }
