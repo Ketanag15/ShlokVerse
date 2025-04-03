@@ -3,10 +3,12 @@ package com.shlokverse.implementation;
 import com.shlokverse.model.Category;
 import com.shlokverse.repository.CategoryRepository;
 import com.shlokverse.service.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
