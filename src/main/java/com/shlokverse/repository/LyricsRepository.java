@@ -1,21 +1,27 @@
 package com.shlokverse.repository;
 
 import com.shlokverse.model.Category;
-import com.shlokverse.model.God;
 import com.shlokverse.model.Lyrics;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface LyricsRepository extends JpaRepository<Lyrics, Long> {
-    List<Lyrics> findByCategory(Category category);
 
-    List<Lyrics> findByGod(God god);
+    // Page 2: Get distinct categories for a god (optimized to fetch only IDs/names)
+    @Query("SELECT DISTINCT NEW com.shlokverse.model.Category(c.categoryId, c.categoryName) " +
+            "FROM Lyrics l JOIN l.category c WHERE l.god.godId = :godId")
+    List<Category> findCategoriesByGodId(Long godId);
 
-    Optional<Lyrics> findByGodAndCategory(God god, Category category);
+    // Page 3: Get lyrics for a god + category (with sorting)
+    List<Lyrics> findByGodGodIdAndCategoryCategoryIdOrderByLyricsTitleAsc(
+            Long godId,
+            Long categoryId
+    );
 
-    Optional<Lyrics> findByTitle(String title);
+    // Bonus: Fetch a specific lyric (e.g., for reporting)
+    Optional<Lyrics> findByLyricsIdAndGodGodId(Long lyricsId, Long godId);
 }
