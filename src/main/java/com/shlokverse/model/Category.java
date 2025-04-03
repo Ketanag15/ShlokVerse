@@ -4,62 +4,46 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity  // Marks this as a table in the database
-@Table(name = "categories")  // The table name is "categories"
-public class Category {
+@Entity
+@Table(name = "Category")
+public class Category{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
+    private Long categoryId;
 
-    @Id  // Primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increments the ID
-    private Long id;
+    @Column(name = "category_Name", nullable = false, unique = true)
+    private String categoryName;
 
-    @Column(nullable = false, unique = true)  // Category name cannot be null
-    private String name;
-
-    // Each category is simply a type like Aarti, Chalisa, etc.
+    // One-to-Many: One Category can have many Lyrics entries
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Lyrics> lyrics; // All lyrics that are of this category type.
+    private List<Lyrics> lyrics;
 
+    public Category(){
 
-    // Default Constructor (Required for JPA)
-    public Category() {
     }
 
-    // Constructor with Parameters
-    public Category(String name) {
-        this.name = name;
+    public Category(String categoryName){
+        this.categoryName = categoryName;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getCategoryId(){
+        return categoryId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getCategoryName(){
+        return categoryName;
     }
 
-    public String getName() {
-        return name;
+    public void setCategoryName(String categoryName){
+        this.categoryName = categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Lyrics> getLyrics() {
+    public List<Lyrics> getLyrics(){
         return lyrics;
     }
 
-    public void setLyrics(List<Lyrics> lyrics) {
+    public void setLyrics(List<Lyrics> lyrics){
         this.lyrics = lyrics;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lyricsCount=" + (lyrics != null ? lyrics.size() : 0) +
-                '}';
     }
 }

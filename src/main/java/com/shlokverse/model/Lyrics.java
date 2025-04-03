@@ -1,72 +1,47 @@
 package com.shlokverse.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "lyrics")
-public class Lyrics {
+@Table(name = "Lyrics")
+public class Lyrics{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "lyrics_id")
+    private Long lyricsId;
 
-    @Column(nullable = false)
-    private String content;
-
-    @Column(nullable = false)
-    private String title;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    @JsonBackReference // Prevents infinite recursion
-    private Category category;
-
-    @ManyToOne
+    // Many-to-One: Many Lyrics can belong to one God
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "god_id", nullable = false)
-    @JsonBackReference // Prevents infinite recursion
     private God god;
 
-    public Lyrics() {
+    // Many-to-One: Many Lyrics can belong to one Category
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Column(name = "Lyrics_Title", nullable = false)
+    private String lyricsTitle;
+
+    @Column(name = "Lyrics_Content", nullable = false, columnDefinition = "TEXT")
+    private String lyricsContent;
+
+
+    public Lyrics(){
+
     }
 
-    public Lyrics(String content, String title, Category category, God god) {
-        this.content = content;
-        this.title = title;
-        this.category = category;
+    public Lyrics(God god, Category category, String lyricsTitle, String lyricsContent) {
         this.god = god;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
+        this.lyricsTitle = lyricsTitle;
+        this.lyricsContent = lyricsContent;
+    }
+
+    public Long getLyricsId() {
+        return lyricsId;
     }
 
     public God getGod() {
@@ -77,14 +52,27 @@ public class Lyrics {
         this.god = god;
     }
 
-    @Override
-    public String toString() {
-        return "Lyrics{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + (content != null ? content.length() > 30 ? content.substring(0, 30) + "..." : content : "null") + '\'' +
-                ", category=" + (category != null ? category.getName() : "null") +
-                ", god=" + (god != null ? god.getName() : "null") +
-                '}';
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getLyricsTitle() {
+        return lyricsTitle;
+    }
+
+    public void setLyricsTitle(String lyricsTitle) {
+        this.lyricsTitle = lyricsTitle;
+    }
+
+    public String getLyricsContent() {
+        return lyricsContent;
+    }
+
+    public void setLyricsContent(String lyricsContent) {
+        this.lyricsContent = lyricsContent;
     }
 }
