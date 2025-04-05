@@ -15,7 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class LyricsController {
-    private LyricsService lyricsService;
+    private final LyricsService lyricsService;
+
+    public LyricsController(LyricsService lyricsService){
+        this.lyricsService = lyricsService;
+    }
 
     @GetMapping("/gods/{godId}/categories")
     public ResponseEntity<List<Category>> getCategoriesByGodId(@PathVariable Long godId){
@@ -24,10 +28,6 @@ public class LyricsController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(categories);
-    }
-
-    public LyricsController(LyricsService lyricsService){
-        lyricsService = lyricsService;
     }
 
     @GetMapping("/god/{godId}/category/{categoryId}/lyrics")
