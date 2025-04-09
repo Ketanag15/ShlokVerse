@@ -1,5 +1,6 @@
 package com.shlokverse.dataloader;
 
+import com.shlokverse.constants.LyricsContent;
 import com.shlokverse.model.Category;
 import com.shlokverse.model.God;
 import com.shlokverse.model.Lyrics;
@@ -24,19 +25,20 @@ public class Dataloader implements CommandLineRunner {
         this.lyricsRepository = lyricsRepository;
     }
 
-    private static final List<String[]> SAMPLE_DATA = List.of(
-            new String[]{"Shiv", "Aarti", "Om Jai Shiv Omkara", "Shiv Aarti"},
-            new String[]{"Vishnu", "Aarti", "Jai Jagdish Hare", "Vishnu Aarti"},
-            new String[]{"Hanuman", "Chalisa", "Shri Guru Charan Saroj Raj", "Hanuman Chalisa"},
-            new String[]{"Durga", "Stotram", "Ya Devi Sarvabhuteshu", "Durga Stotram"}
-    );
+    private static final List<String[]> DATA_CONTENT = List.of(
+            new String[]{"Shiv", "Aarti", LyricsContent.SHIV_AARTI, "Shiv Aarti"},
+            new String[]{"Hanuman", "Aarti", LyricsContent.HANUMAN_AARTI, "Hanuman Aarti"},
+            new String[]{"Hanuman", "Chalisa", LyricsContent.HANUMAN_CHALISA, "Hanuman Chalisa"},
+            new String[]{"Shiv", "Chalisa", LyricsContent.SHIV_CHALISA, "Shiv Chalisa"},
+            new String[]{"Vishnu", "Aarti", LyricsContent.VISHNU_AARTI, "Vishnu Aarti"}
+            );
 
     @Override
     @Transactional
     public void run(String... args) {
         System.out.println("🚀 Starting data loading...");
 
-        SAMPLE_DATA.forEach(data ->
+        DATA_CONTENT.forEach(data ->
                 insertData(data[0], data[1], data[2], data[3])
         );
 
@@ -46,7 +48,7 @@ public class Dataloader implements CommandLineRunner {
     private void insertData(String godName, String categoryName, String lyricsContent, String LyricsTitle){
 
         //Find or Create God
-        God god = godRepository.findByGodName(godName)
+        God god = godRepository.getGodByName(godName)
                     .orElseGet(() ->{
                         God newGod = godRepository.save(new God(godName));
                         System.out.println("New God Saved : " +godName);
@@ -54,7 +56,7 @@ public class Dataloader implements CommandLineRunner {
                     });
 
         //Find or create the Category
-        Category category = categoryRepository.findByCategoryName(categoryName)
+        Category category = categoryRepository.getCategoryByName(categoryName)
                                 .orElseGet(() -> {
                                     Category newCategory = categoryRepository.save(new Category(categoryName));
                                     System.out.println("New Category saved : " +categoryName);
