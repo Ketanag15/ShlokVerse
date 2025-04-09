@@ -2,7 +2,6 @@ package com.shlokverse.controller;
 
 import com.shlokverse.model.Category;
 import com.shlokverse.model.Lyrics;
-import com.shlokverse.repository.LyricsRepository;
 import com.shlokverse.service.LyricsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +29,7 @@ public class LyricsController {
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/god/{godId}/category/{categoryId}/lyrics")
+    @GetMapping("/gods/{godId}/categories/{categoryId}/lyrics")
     public ResponseEntity<List<Lyrics>> getLyrics(@PathVariable Long godId, @PathVariable Long categoryId){
         List<Lyrics> lyrics = lyricsService.getLyricsByGodAndCategory(godId, categoryId);
 
