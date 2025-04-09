@@ -6,8 +6,14 @@ import com.shlokverse.model.Lyrics;
 import com.shlokverse.repository.CategoryRepository;
 import com.shlokverse.repository.GodRepository;
 import com.shlokverse.repository.LyricsRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-public class Dataloader{
+import java.util.List;
+
+@Component
+public class Dataloader implements CommandLineRunner {
     private final GodRepository godRepository;
     private final CategoryRepository categoryRepository;
     private final LyricsRepository lyricsRepository;
@@ -18,6 +24,24 @@ public class Dataloader{
         this.lyricsRepository = lyricsRepository;
     }
 
+    private static final List<String[]> SAMPLE_DATA = List.of(
+            new String[]{"Shiv", "Aarti", "Om Jai Shiv Omkara", "Shiv Aarti"},
+            new String[]{"Vishnu", "Aarti", "Jai Jagdish Hare", "Vishnu Aarti"},
+            new String[]{"Hanuman", "Chalisa", "Shri Guru Charan Saroj Raj", "Hanuman Chalisa"},
+            new String[]{"Durga", "Stotram", "Ya Devi Sarvabhuteshu", "Durga Stotram"}
+    );
+
+    @Override
+    @Transactional
+    public void run(String... args) {
+        System.out.println("🚀 Starting data loading...");
+
+        SAMPLE_DATA.forEach(data ->
+                insertData(data[0], data[1], data[2], data[3])
+        );
+
+        System.out.println("✅ Data loading completed!");
+    }
 
     private void insertData(String godName, String categoryName, String lyricsContent, String LyricsTitle){
 
