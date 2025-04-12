@@ -36,13 +36,13 @@ public class Dataloader implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        System.out.println("🚀 Starting data loading...");
+        System.out.println("Data Loading Started ...");
 
         DATA_CONTENT.forEach(data ->
                 insertData(data[0], data[1], data[2], data[3])
         );
 
-        System.out.println("✅ Data loading completed!");
+        System.out.println("Data successfully loaded !!");
     }
 
     private void insertData(String godName, String categoryName, String lyricsContent, String LyricsTitle){

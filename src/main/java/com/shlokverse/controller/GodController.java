@@ -23,15 +23,15 @@ public class GodController{
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<God> getGodById(@PathVariable Long id){
-        return godService.getGodById(id)
+    public ResponseEntity<God> getGodById(@PathVariable Long godId){
+        return godService.getGodById(godId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<God> getGodByName(@RequestParam String name){
-        return godService.getGodByName(name)
+    public ResponseEntity<God> getGodByName(@RequestParam String godName){
+        return godService.getGodByName(godName)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
