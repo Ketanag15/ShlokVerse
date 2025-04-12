@@ -28,7 +28,7 @@ public class GodServiceImpl implements GodService{
     }
 
     @Override
-    public Optional<God> getGodByName(String godName) {
-        return godRepository.getGodByName(godName);
+    public Optional<God> findByGodName(String godName) {
+        return godRepository.findByGodName(godName);
     }
 }

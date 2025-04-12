@@ -33,8 +33,8 @@ public class CategoryController {
 
     // Get category by name (alternative lookup)
     @GetMapping("/search")
-    public ResponseEntity<Category> getCategoryByName(@RequestParam String categoryName) {
-        return categoryService.getCategoryByName(categoryName)
+    public ResponseEntity<Category> findByCategoryName(@RequestParam String categoryName) {
+        return categoryService.findByCategoryName(categoryName)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

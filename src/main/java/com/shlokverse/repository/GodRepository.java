@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface GodRepository extends JpaRepository<God, Long> {
-    Optional<God> getGodByName(String godName); // Safer null handling
+    Optional<God> findByGodName(String godName); // Safer null handling
 }
