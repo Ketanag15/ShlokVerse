@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     //find categories, filtering on category name
     @Override
-    public Optional<Category> getCategoryByName(String categoryName) {
-        return categoryRepository.getCategoryByName(categoryName);
+    public Optional<Category> findByCategoryName(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
     }
 }

@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface CategoryService {
     List<Category> getAllCategories();
     Optional<Category> getCategoryById(Long categoryId);
-    Optional<Category> getCategoryByName(String categoryName);
+    Optional<Category> findByCategoryName(String categoryName);
 }

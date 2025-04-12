@@ -8,6 +8,8 @@ import com.shlokverse.repository.CategoryRepository;
 import com.shlokverse.repository.GodRepository;
 import com.shlokverse.repository.LyricsRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ public class Dataloader implements CommandLineRunner {
     private final GodRepository godRepository;
     private final CategoryRepository categoryRepository;
     private final LyricsRepository lyricsRepository;
+    private static final Logger log = LoggerFactory.getLogger(Dataloader.class);
 
     public Dataloader(GodRepository godRepository, CategoryRepository categoryRepository, LyricsRepository lyricsRepository){
         this.godRepository = godRepository;
@@ -47,19 +50,23 @@ public class Dataloader implements CommandLineRunner {
 
     private void insertData(String godName, String categoryName, String lyricsContent, String LyricsTitle){
 
+        if (godName == null || categoryName == null || lyricsContent == null || LyricsTitle == null) {
+            throw new IllegalArgumentException("Data fields cannot be null!");
+        }
+
         //Find or Create God
-        God god = godRepository.getGodByName(godName)
+        God god = godRepository.findByGodName(godName)
                     .orElseGet(() ->{
                         God newGod = godRepository.save(new God(godName));
-                        System.out.println("New God Saved : " +godName);
+                        log.info("New God Saved: {}", godName);
                         return newGod;
                     });
 
         //Find or create the Category
-        Category category = categoryRepository.getCategoryByName(categoryName)
+        Category category = categoryRepository.findByCategoryName(categoryName)
                                 .orElseGet(() -> {
                                     Category newCategory = categoryRepository.save(new Category(categoryName));
-                                    System.out.println("New Category saved : " +categoryName);
+                                    log.info("New Category Saved: {}", categoryName);
                                     return newCategory;
                                 });
 
@@ -73,9 +80,9 @@ public class Dataloader implements CommandLineRunner {
         if(!doesLyricsExists){
             Lyrics lyrics = new Lyrics(god, category, LyricsTitle, lyricsContent);
             lyricsRepository.save(lyrics);
-            System.out.println("Added Lyrics: " + LyricsTitle);
+            log.info("Added Lyrics: " + LyricsTitle);
         } else {
-            System.out.println("Skipped existing: " + godName + " - " + categoryName);
+            log.info("Skipped existing: " + godName + " - " + categoryName);
         }
     }
 }

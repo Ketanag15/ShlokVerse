@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface GodService {
     List<God> getAllGods();
     Optional<God> getGodById(Long godId);
-    Optional<God> getGodByName(String godName);
+    Optional<God> findByGodName(String godName);
 }

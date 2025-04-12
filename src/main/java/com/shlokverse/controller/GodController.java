@@ -31,7 +31,7 @@ public class GodController{
 
     @GetMapping("/search")
     public ResponseEntity<God> getGodByName(@RequestParam String godName){
-        return godService.getGodByName(godName)
+        return godService.findByGodName(godName)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
