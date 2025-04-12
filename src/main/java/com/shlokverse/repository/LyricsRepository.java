@@ -13,7 +13,9 @@ import java.util.Optional;
 public interface LyricsRepository extends JpaRepository<Lyrics, Long> {
 
     // Page 2: Get distinct categories for a god (optimized to fetch only IDs/names)
-    @Query("SELECT DISTINCT l.category FROM Lyrics l WHERE l.god.godId = :godId")
+    @Query("SELECT NEW com.shlokverse.model.Category(c.categoryId, c.categoryName) " +
+            "FROM Lyrics l JOIN l.category c WHERE l.god.godId = :godId " +
+            "GROUP BY c.categoryId, c.categoryName")
     List<Category> findCategoriesByGodId(@Param("godId") Long godId);
 
     // Page 3: Get lyrics for a god + category (with sorting)

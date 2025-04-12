@@ -25,17 +25,16 @@ public class CategoryController {
 
     // Get category by ID (for future use)
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
-        return categoryService.getCategoryById(id)
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long categoryId) {
+        return categoryService.getCategoryById(categoryId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // Get category by name (alternative lookup)
     @GetMapping("/search")
-    public ResponseEntity<Category> getCategoryByName(
-            @RequestParam String name) {
-        return categoryService.getCategoryByName(name)
+    public ResponseEntity<Category> getCategoryByName(@RequestParam String categoryName) {
+        return categoryService.getCategoryByName(categoryName)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
